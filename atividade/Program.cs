@@ -1,12 +1,16 @@
 ﻿using System.Collections.Concurrent;
+using System.Runtime;
 using System.Security.Authentication;
 Random r = new Random();
 string adm = "Administrador";
 string adms = "123456";
 int i = 0;
 bool controle = true;
+bool controlex = true;
+bool controley = true;
 Console.Clear();
-List<string> livros = ["Dom Quixote", "Um Conto de Duas Cidades", "O Senhor dos Anéis", "O Pequeno Príncipe"];
+List<string> livros = [];
+List<int> qtlivros = [];
 while (controle)
 {
     Console.WriteLine("Logue com seu usuário: ");
@@ -21,7 +25,7 @@ while (controle)
             //loop para adicionar os livros
             while (true)
             {
-                
+
                 i++;
                 Console.Write(i + " - ");
                 string novolivro = Console.ReadLine();
@@ -45,43 +49,42 @@ while (controle)
                     }
                 }
             }
-                Console.WriteLine($"Informe a quantidade de cada livro, respectivamente");
-            while (true)
+            Console.WriteLine($"Informe a quantidade de unidade do livro, respectivamente");
+            for (int c=qtlivros.Count; c <= livros.Count-1;c++)
             {
-                //int.TryParse(Console.ReadLine(), out int qntlivro);
-                
-                 
-
-                while (true)
+                while (controlex)
                 {
-                    
-                     string info = Console.ReadLine().ToLower();
-                     if(info == "sair")
-                     {
+                    Console.Write(livros[c] + " - ");
+                    string info = Console.ReadLine().ToLower();
+                    if (info == "sair")
+                    {
                         Console.WriteLine("teste");
-                        break;
-                     }
-                     else
-                     {
-                        if (int.TryParse(info, out int qntlivro))
+                        controlex = false;
+                    }
+                    else
+                    {
+                        if (int.TryParse(info, out int unilivro))
                         {
-                            
-                            if (qntlivro >= i)
-                            {
-                                Console.WriteLine("Quantidade não pode ser maior que o número de livros adicionados.");
-                                break;
-                            }
-                            else
-                            {
-                                break;
-                            }
-
+                            qtlivros.Add(unilivro);
+                            Console.WriteLine(unilivro);
+                            controlex = false;
+                            controley = false;
                         }
                         else
                         {
                             Console.WriteLine("informe um valor válido");
                         }
-                     }
+                    }
+                }
+                if (controley == false)
+                {
+                    controlex = true;
+                    controley = true;
+                }
+
+                if (controlex == false)
+                {
+                    break;
                 }
             }
         }
@@ -90,46 +93,14 @@ while (controle)
             Console.WriteLine("senha incorreta.");
         }
     }
-    else
+else
+{
+    Console.WriteLine("você é usuário\n");
+    for (int c=0; c <= livros.Count-1;c++)
     {
-        Console.WriteLine("você é usuário\n");
-        foreach (var livro in livros)
-        {
-            Console.WriteLine(livro);
-        }
-
-    }
-    Console.WriteLine("Você deseja fechar o programa?(sim/não)");
-    string op = Console.ReadLine().ToLower();
-    if (op == "sim")
-    {
-        break;
+        Console.WriteLine(c+" - "+livros[c]+" - "+qtlivros[c]);
     }
 
 }
 
-
-
-
-
-
-/*List<string> names = ["<name>", "Ana", "Felipe"];
-
-
-
-names.Add("Maria");
-names.Add("Bill");
-names.Remove("Ana");
-foreach (var name in names)
-{
-    Console.WriteLine($"Hello {name.ToUpper()}!");
-}*/
-
-
-
-
-/*string condicao = Console.ReadLine().ToLower();
-                    if(condicao=="sair")
-                    {
-                        break;
-                    }*/
+}
